@@ -24,7 +24,7 @@ class Completer(object):
         except IndexError:
             return None
 
-def get_cls():
+def get_csl():
     request = requests.get('https://api.github.com/repos/citation-style-language/styles/git/trees/master?recursive=1')
     data = request.json()
     files = []
@@ -38,17 +38,17 @@ def get_cls():
     readline.parse_and_bind("tab: complete")
     for item in files:
         readline.add_history(item)
-    cls = input("Select one of the .cls format files (Tab to show all): ")
+    csl = input("Select one of the .csl format files (Tab to show all): ")
 
     # Have to use a tempfile since python discards non int return values to stderr and
     # we need this value in the parent bash script
     tmpfile = open("tmp.txt", "w")
-    tmpfile.write(cls)
+    tmpfile.write(csl)
     tmpfile.close()
 
 if __name__ == "__main__":
     try:
-        get_cls()
+        get_csl()
     except KeyboardInterrupt:
         print("\nInterrupted. Exiting.")
         sys.exit(1)

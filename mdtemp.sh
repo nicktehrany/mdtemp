@@ -19,13 +19,13 @@ function __check_response(){
 }
 
 function __init_cite() {
-    python3 cls_getter.py -m main
+    python3 csl_getter.py -m main
     if [ $? != 0 ]; then
         exit 1
     fi
-    CLS=$(cat tmp.txt)
+    csl=$(cat tmp.txt)
     rm tmp.txt
-    curl -so $PWD/$DIR/$CLS -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$CLS
+    curl -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl
 }
 
 function mdtemp() {
@@ -70,7 +70,7 @@ function mdtemp() {
     \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack},
     \tauthor={Nick Tehrany},
     \tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC
-    \n# References\n" && CSL="csl: $CLS\n\055--" && CMD="\055-bibliography main.bib"
+    \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
 
     printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
 
