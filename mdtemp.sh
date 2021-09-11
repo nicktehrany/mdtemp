@@ -20,7 +20,7 @@ function __check_response(){
 }
 
 function __init_cite() {
-    python3 csl_getter.py -m main
+    python3 $MDTEMP/csl_getter.py -m main
     if [ $? != 0 ]; then
         exit 1
     fi
@@ -82,7 +82,3 @@ function mdtemp() {
     printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\n$CSL\n$CITE" > $PWD/$DIR/main.md
     printf "${GREEN}Finished setting up template!\n"
 }
-
-
-# TEMP: calling to run it
-mdtemp $@
