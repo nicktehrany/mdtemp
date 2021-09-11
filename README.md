@@ -18,7 +18,7 @@ git clone https://github.com/nicktehrany/mdtemp.git
 # source the mdtemp script (change to the location where you have it stored!)
 [ -f $HOME/.config/env/mdtemp/mdtemp.sh ] && source $HOME/.config/env/mdtemp/mdtemp.sh
 
-# export the location
+# export the location (change to the location where you have it stored!)
 [ -d $HOME/.config/env/mdtemp ] && export MDTEMP="$HOME/.config/env/mdtemp"
 ```
 
@@ -33,7 +33,7 @@ mdtemp -d directory [-h] [-c]
 
 Flags:
     -d: Directory Name, which will be created with the template files [Required!]
-    -c: Initialize Citations
+    -c: Initialize Citations, without it will not download CSL
     -h: Help
 ```
 
