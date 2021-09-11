@@ -86,7 +86,7 @@ function mdtemp() {
     if [ "$citations" = "true" ]; then
         __init_cite
         if [ "$?" -ne 1 ]; then
-            printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
+            printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC\n\n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
         else
             return 1
         fi
