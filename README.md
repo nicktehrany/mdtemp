@@ -29,10 +29,10 @@ Note, the checks in the source and export are just there so the shell doesn't th
 Usage is also relatively simple
 
 ```bash
-mdtemp -d directory [-h] [-c]
+mdtemp -d [folder name] [-h] [-c]
 
 Flags:
-    -d: Directory Name, which will be created with the template files [Required!]
+    -d: Directory Name of the folder to create containing the template files [Required!]
     -c: Initialize Citations, without it will not download CSL
     -h: Help
 ```
