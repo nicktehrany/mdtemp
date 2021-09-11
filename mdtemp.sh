@@ -4,7 +4,7 @@ GREEN=$'\033[1;32m'
 RED=$'\033[1;31m'
 
 function __usage_mdtemp() {
-    printf "Usage: cmd [-d directory] [-h] [-c]\nFlags:\n\t-d: Directory Name\n\t-c: Initialize Citations\n\t-h: Help\n"
+    printf "Usage: mdtemp [-d directory] [-h] [-c]\nFlags:\n\t-d: Directory Name\n\t-c: Initialize Citations\n\t-h: Help\n"
 }
 
 

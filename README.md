@@ -23,3 +23,25 @@ git clone https://github.com/nicktehrany/mdtemp.git
 ```
 
 Note, the checks in the source and export are just there so the shell doesn't throw errors if it can't find the file.
+
+## Usage
+
+Usage is also relatively simple
+
+```bash
+mdtemp [-d directory] [-h] [-c]
+
+Flags:
+    -d: Directory Name
+    -c: Initialize Citations
+    -h: Help
+```
+
+An example will look like:
+
+```bash
+# create template with reference format
+mdtemp -d report -c
+```
+
+Options for .csl files will show up as soon as you start typing the first letter (it uses fuzzy finding!).
