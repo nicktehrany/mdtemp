@@ -23,17 +23,17 @@ function __init_cite() {
         python3 $MDTEMP/csl_getter.py -m main
     else
         printf "${RED}Can't find csl_getter.py. Exiting."
-        exit 1
+        exit 0
     fi
     if [ $? != 0 ]; then
-        exit 1
+        exit 0
     fi
     csl=$(cat tmp.txt)
     rm tmp.txt
     status_code=$(curl --write-out %{http_code} -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl)
     if [ "$status_code" -ne 200 ]; then
         printf "${RED}Invalid CSL. Exiting.\n"
-        exit 1
+        exit 0
     fi
 }
 
@@ -64,7 +64,7 @@ function mdtemp() {
 
     if [ -z "$DIR" ]; then
         printf "${RED}Missing -d argument. Exiting."
-        exit 1
+        exit 0
     fi
     if [ -e ${PWD}/$DIR ]; then
         printf "The folder already exists. Overwrite it? (y/n): "

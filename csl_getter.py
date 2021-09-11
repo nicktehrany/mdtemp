@@ -31,4 +31,4 @@ if __name__ == "__main__":
         get_csl()
     except KeyboardInterrupt:
         print("\nInterrupted. Exiting.")
-        sys.exit(1)
+        sys.exit(0)
