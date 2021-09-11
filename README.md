@@ -16,7 +16,7 @@ export the location of the `mdtemp` folder.
 git clone https://github.com/nicktehrany/mdtemp.git
 
 # source the mdtemp script (change to the location where you have it stored!)
-[ -f $HOME/.config/env/textemp/mdtemp.sh ] && source $HOME/.config/env/textemp/mdtemp.sh
+[ -f $HOME/.config/env/mdtemp/mdtemp.sh ] && source $HOME/.config/env/mdtemp/mdtemp.sh
 
 # export the location
 [ -d $HOME/.config/env/mdtemp ] && export MDTEMP="$HOME/.config/env/mdtemp"

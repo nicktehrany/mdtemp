@@ -4,7 +4,7 @@ set -e
 GREEN=$'\033[1;32m'
 RED=$'\033[1;31m'
 
-function __usage() {
+function __usage_mdtemp() {
     printf "Usage: cmd [-d directory] [-h] [-c]\nFlags:\n\t-d: Directory Name\n\t-c: Initialize Citations\n\t-h: Help\n"
 }
 
@@ -40,7 +40,7 @@ function mdtemp() {
     CSL="---"
     CMD=""
 
-    [ $# -lt 1 ] && __usage
+    [ $# -lt 1 ] && __usage_mdtemp
     while getopts "d:ch" opt; do
         case ${opt} in
             d)
@@ -50,7 +50,7 @@ function mdtemp() {
                 citations=true
                 ;;
             h | *)
-                __usage
+                __usage_mdtemp
                 exit 0
                 ;;
         esac
