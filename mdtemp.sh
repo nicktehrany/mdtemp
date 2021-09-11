@@ -2,6 +2,7 @@
 set -e
 
 GREEN=$'\033[1;32m'
+RED=$'\033[1;31m'
 
 function __usage() {
     printf "Usage: cmd [-d directory] [-h] [-c]\nFlags:\n\t-d: Directory Name\n\t-c: Initialize Citations\n\t-h: Help\n"
@@ -25,7 +26,11 @@ function __init_cite() {
     fi
     csl=$(cat tmp.txt)
     rm tmp.txt
-    curl -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl
+    status_code=$(curl --write-out %{http_code} -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl)
+    if [ "$status_code" -ne 200 ]; then
+        printf "${RED}Invalid CSL. Exiting.\n"
+        exit 1
+    fi
 }
 
 function mdtemp() {
