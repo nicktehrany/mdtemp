@@ -54,13 +54,15 @@ function mdtemp() {
         mkdir $PWD/$DIR
     fi
 
-    [ $citations == true ] && printf "@inproceedings{Tehrany2020EvaluatingPC,\n\ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack},\n\tauthor={Nick Tehrany},\n\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC\n\n# References\n" && CSL="csl: acm-computing-surveys.csl\n\055--"
+    [ $citations == true ] && printf "@inproceedings{Tehrany2020EvaluatingPC,
+    \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack},
+    \tauthor={Nick Tehrany},
+    \tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC
+    \n# References\n" && CSL="csl: acm-computing-surveys.csl\n\055--"
 
     printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
 
-    printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')
-$CSL
-$CITE" > $PWD/$DIR/main.md
+    printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\n$CSL\n$CITE" > $PWD/$DIR/main.md
 }
 
 
