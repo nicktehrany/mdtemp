@@ -83,8 +83,6 @@ function mdtemp() {
         mkdir $PWD/$DIR
     fi
 
-    printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\n$CSL\n$CITE" > $PWD/$DIR/main.md
-
     if [ "$citations" = "true" ]; then
         __init_cite
         if [ "$?" -ne 1 ]; then
@@ -93,6 +91,8 @@ function mdtemp() {
             return 1
         fi
     fi
+
+    printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\n$CSL\n$CITE" > $PWD/$DIR/main.md
 
     printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
 
