@@ -88,11 +88,13 @@ function mdtemp() {
     if [ "$citations" = "true" ]; then
         __init_cite
         if [ "$?" -ne 1 ]; then
-            printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib" printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
+            printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
         else
             return 1
         fi
     fi
+
+    printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
 
     printf "${GREEN}Finished setting up template!\n"
 }
