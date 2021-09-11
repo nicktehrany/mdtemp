@@ -23,17 +23,19 @@ function __init_cite() {
         python3 $MDTEMP/csl_getter.py -m main
     else
         printf "${RED}Can't find csl_getter.py. Exiting."
-        exit 0
+        return 1
     fi
-    if [ $? != 0 ]; then
-        exit 0
+    if [ -f tmp.txt ]; then
+        csl=$(cat tmp.txt)
+        rm tmp.txt
+    else
+        printf "${RED}Error retrieving CLS info. Exiting.\n"
+        return 1
     fi
-    csl=$(cat tmp.txt)
-    rm tmp.txt
     status_code=$(curl --write-out %{http_code} -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl)
     if [ "$status_code" -ne 200 ]; then
         printf "${RED}Invalid CSL. Exiting.\n"
-        exit 0
+        return 1
     fi
 }
 
@@ -56,15 +58,15 @@ function mdtemp() {
                 ;;
             h | *)
                 __usage_mdtemp
-                exit 0
+                return
                 ;;
         esac
     done
     shift $((OPTIND -1))
 
     if [ -z "$DIR" ]; then
-        printf "${RED}Missing -d argument. Exiting."
-        exit 0
+        printf "${RED}Missing -d argument. Exiting.\n"
+        return 0
     fi
     if [ -e ${PWD}/$DIR ]; then
         printf "The folder already exists. Overwrite it? (y/n): "
@@ -81,8 +83,16 @@ function mdtemp() {
         mkdir $PWD/$DIR
     fi
 
-    [ "$citations" = "true" ] && __init_cite && printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib" printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
-
     printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\n$CSL\n$CITE" > $PWD/$DIR/main.md
+
+    if [ "$citations" = "true" ]; then
+        __init_cite
+        if [ "$?" -ne 1 ]; then
+            printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC \n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib" printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
+        else
+            return 1
+        fi
+    fi
+
     printf "${GREEN}Finished setting up template!\n"
 }
