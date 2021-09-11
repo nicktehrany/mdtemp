@@ -29,10 +29,10 @@ Note, the checks in the source and export are just there so the shell doesn't th
 Usage is also relatively simple
 
 ```bash
-mdtemp [-d directory] [-h] [-c]
+mdtemp -d directory [-h] [-c]
 
 Flags:
-    -d: Directory Name
+    -d: Directory Name, which will be created with the template files [Required!]
     -c: Initialize Citations
     -h: Help
 ```
