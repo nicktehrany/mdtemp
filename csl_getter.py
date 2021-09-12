@@ -9,7 +9,12 @@ from prompt_toolkit import prompt
 from prompt_toolkit.completion import FuzzyWordCompleter
 
 def get_csl():
-    request = requests.get('https://api.github.com/repos/citation-style-language/styles/git/trees/master?recursive=1')
+    try:
+        request = requests.get('https://api.github.com/repos/citation-style-language/styles/git/trees/master?recursive=1')
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
     data = request.json()
     files = []
 
