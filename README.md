@@ -15,10 +15,9 @@ export the location of the `mdtemp` folder.
 ```bash
 git clone https://github.com/nicktehrany/mdtemp.git
 
-# source the mdtemp script (change to the location where you have it stored!)
+# Add the following to your shell rc file (.bashrc or .zshrc or other)
+# source the mdtemp script and export its location (change all to the location where you have it stored!)
 [ -f $HOME/.config/env/mdtemp/mdtemp.sh ] && source $HOME/.config/env/mdtemp/mdtemp.sh
-
-# export the location (change to the location where you have it stored!)
 [ -d $HOME/.config/env/mdtemp ] && export MDTEMP="$HOME/.config/env/mdtemp"
 ```
 
