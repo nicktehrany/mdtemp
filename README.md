@@ -33,7 +33,7 @@ Usage is also relatively simple
 mdtemp -d [folder name] [-h] [-c]
 
 Flags:
-    -d: Directory Name of the folder to create containing the template files (Default: 'mdtemp/')
+    -d: Directory Name of the folder to create containing the template files (Default: 'mdtemplate/')
     -c: Initialize Citations, without it will not download CSL
     -h: Help
 ```
