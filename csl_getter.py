@@ -4,7 +4,6 @@ import json
 import requests
 from re import search
 import sys
-import os
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import FuzzyWordCompleter
 
