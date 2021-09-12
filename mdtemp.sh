@@ -2,6 +2,7 @@
 
 GREEN=$'\033[1;32m'
 RED=$'\033[1;31m'
+WHITE=$'\033[4;37m'
 
 function __usage_mdtemp() {
     printf "Usage: mdtemp -d directory [-h] [-c]\nFlags:\n\t-d: Directory Name to create [Required!]\n\t-c: Initialize Citations\n\t-h: Help\n"
@@ -45,7 +46,7 @@ function mdtemp() {
     CITE=""
     CSL="---"
     CMD=""
-    unset DIR
+    DIR="mdtemplate"
 
     [ $# -lt 1 ] && __usage_mdtemp
     while getopts "d:ch" opt; do
@@ -64,10 +65,6 @@ function mdtemp() {
     done
     shift $((OPTIND -1))
 
-    if [ -z "$DIR" ]; then
-        printf "${RED}Missing -d argument. Exiting.\n"
-        return 0
-    fi
     if [ -e ${PWD}/$DIR ]; then
         printf "The folder already exists. Overwrite it? (y/n): "
         read -r create
@@ -96,5 +93,5 @@ function mdtemp() {
 
     printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
 
-    printf "${GREEN}Finished setting up template!\n"
+    printf "${GREEN}Finished setting up template in ${WHITE}$PWD/$DIR\n"
 }
