@@ -9,18 +9,17 @@ will list all these styles and then curl the one needed). The pdf generation can
 ## Installation
 
 Installation is very simple, all you need to do is clone this repo (somewhere where you usually put custom scripts, I
-put it in `$HOME/.config/`) and source the script in your `.bashrc` or `.zshrc` or any other shell you use, and finally
+put it in `$HOME/bin/` and add that to my `$PATH`, or source the script in your `.bashrc` or `.zshrc` or any other shell you use) and finally
 export the location of the `mdtemp` folder.
 
 ```bash
 git clone https://github.com/nicktehrany/mdtemp.git
 
-# Add the following two commands to your shell rc file (.bashrc or .zshrc or other)
-# source the mdtemp script (change dir to where you have it stored!)
-[ -f $HOME/.config/env/mdtemp/mdtemp.sh ] && source $HOME/.config/env/mdtemp/mdtemp.sh
+# Export its location (change dir if you put it somewhere else!)
+[ -d $HOME/bin/mdtemp ] && export MDTEMP="$HOME/bin/mdtemp"
 
-# and export its location (again, change dir!)
-[ -d $HOME/.config/env/mdtemp ] && export MDTEMP="$HOME/.config/env/mdtemp"
+# If you put the script somewhere else you also need to source it (change the dir again!)
+[ -f $HOME/path/to/mdtemp.sh ] && source $HOME/path/to/mdtemp/mdtemp.sh
 ```
 
 Note, the checks in the source and export are just there so the shell doesn't throw errors if it can't find the file.
