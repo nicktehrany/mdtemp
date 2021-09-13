@@ -66,7 +66,7 @@ while getopts "d:ch" opt; do
             ;;
         h | *)
             __usage_mdtemp
-            return
+            exit 1
             ;;
     esac
 done
@@ -82,7 +82,7 @@ if [[ "$response" == "0" ]]; then
     mkdir $PWD/$DIR
 else
     echo "Exiting"
-    return 1
+    exit 1
 fi
 else
 mkdir $PWD/$DIR
@@ -93,7 +93,7 @@ __init_cite
 if [ "$?" -ne 1 ]; then
     printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC\n\n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
 else
-    return 1
+    exit 1
 fi
 fi
 
