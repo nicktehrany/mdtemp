@@ -19,7 +19,7 @@ git clone https://github.com/nicktehrany/mdtemp.git
 cp mdtemp/mdtemp ~/bin/
 
 # Export its location (change dir if you put it somewhere else!)
-[ -d $HOME/bin/mdtemp ] && export MDTEMP="$HOME/bin/mdtemp"
+[ -d $HOME/dotfiles/bin/mdtemp ] && export MDTEMP="$HOME/dotfiles/bin/mdtemp"
 
 # Source it only if you don't have it in your path
 [ -f $HOME/path/to/mdtemp/mdtemp ] && source $HOME/path/to/mdtemp/mdtemp
