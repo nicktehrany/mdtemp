@@ -33,11 +33,17 @@ function __init_cite() {
         printf "${RED}Error retrieving CLS info. Exiting.\n"
         return 1
     fi
-    status_code=$(curl --write-out %{http_code} -so $PWD/$DIR/$csl -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl)
+
+    # need to get last part of the string as this is the actual filename
+    temp=$(echo $csl |  grep -oE "[^/]+(?=/$|$)")
+    status_code=$(curl --write-out %{http_code} -so $PWD/$DIR/$temp -OL https://raw.githubusercontent.com/citation-style-language/styles/master/$csl)
     if [ "$status_code" -ne 200 ]; then
         printf "${RED}Invalid CSL. Exiting.\n"
         return 1
     fi
+    
+    # assign to regexed filename to csl for later use
+    csl=$temp
 }
 
 function mdtemp() {
