@@ -9,8 +9,7 @@ will list all these styles and then curl the one needed). The pdf generation can
 ## Installation
 
 Installation is very simple, all you need to do is clone this repo (somewhere where you usually put custom scripts, I
-put it in `$HOME/bin/` and have that in my `$PATH`, or source the script in your `.bashrc` or `.zshrc` or any other shell you use) and finally
-export the location of the `mdtemp` folder.
+have my scripts in `$HOME/bin/` and have that in my `$PATH`) and export the location of the `mdtemp` folder.
 
 ```bash
 git clone https://github.com/nicktehrany/mdtemp.git
@@ -20,9 +19,6 @@ cp mdtemp/mdtemp ~/bin/
 
 # Export its location (change dir if you put it somewhere else!)
 [ -d $HOME/dotfiles/bin/mdtemp ] && export MDTEMP="$HOME/dotfiles/bin/mdtemp"
-
-# Source it only if you don't have it in your path
-[ -f $HOME/path/to/mdtemp/mdtemp ] && source $HOME/path/to/mdtemp/mdtemp
 ```
 
 Note, the checks in the source and export are just there so the shell doesn't throw errors if it can't find the file.
