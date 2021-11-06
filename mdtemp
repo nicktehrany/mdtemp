@@ -55,50 +55,50 @@ DIR="mdtemplate"
 
 [ $# -lt 1 ] && __usage_mdtemp
 if [ $# -ne 1 ]; then
-while getopts "d:ch" opt; do
-    case ${opt} in
-        d)
-            # in case the user wants to be tricky and do mdtemp -d -c
-            [ "${OPTARG}" != "-c" ] && DIR=${OPTARG} || citations="true"
-            ;;
-        c)
-            citations="true"
-            ;;
-        h | *)
-            __usage_mdtemp
-            exit 1
-            ;;
-    esac
-done
-shift $((OPTIND -1))
+    while getopts "d:ch" opt; do
+        case ${opt} in
+            d)
+                # in case the user wants to be tricky and do mdtemp -d -c
+                [ "${OPTARG}" != "-c" ] && DIR=${OPTARG} || citations="true"
+                ;;
+            c)
+                citations="true"
+                ;;
+            h | *)
+                __usage_mdtemp
+                exit 1
+                ;;
+        esac
+    done
+    shift $((OPTIND -1))
 fi
 
 if [ -e ${PWD}/$DIR ]; then
-printf "The folder already exists. Overwrite it? (y/n): "
-read -r create
-response=$(__check_response $create)
-if [[ "$response" == "0" ]]; then
-    rm -r $PWD/$DIR
+    printf "The folder already exists. Overwrite it? (y/n): "
+    read -r create
+    response=$(__check_response $create)
+    if [[ "$response" == "0" ]]; then
+        rm -r $PWD/$DIR
+        mkdir $PWD/$DIR
+    else
+        echo "Exiting"
+        exit 1
+    fi
+    else
     mkdir $PWD/$DIR
-else
-    echo "Exiting"
-    exit 1
-fi
-else
-mkdir $PWD/$DIR
 fi
 
 if [ "$citations" = "true" ]; then
-__init_cite
-if [ "$?" -ne 1 ]; then
-    printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC\n\n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
-else
-    exit 1
-fi
+    __init_cite
+    if [ "$?" -ne 1 ]; then
+        printf "@inproceedings{Tehrany2020EvaluatingPC, \ttitle={Evaluating Performance Characteristics of the PMDK Persistent Memory Software Stack}, \tauthor={Nick Tehrany},\tyear={2020}\n}\n" > $PWD/$DIR/main.bib && DEPS="main.md main.bib" && CITE="\nThis is how a citation works @Tehrany2020EvaluatingPC\n\n# References\n" && CSL="csl: $csl\n\055--" && CMD="\055-bibliography main.bib"
+    else
+        exit 1
+    fi
 fi
 
-printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\nabstract: \"\"\n$CSL\n$CITE" > $PWD/$DIR/main.md
+printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\nabstract: \"\"\ntheme: Copenhagen\n$CSL\n# Heading\n$CITE" > $PWD/$DIR/main.md
 
-printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf" > $PWD/$DIR/Makefile
+printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view presentation clean\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\npresentation: \$(DEPS)\n\tpandoc -t beamer \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf\n\nclean:\n\t\$(RM) \$(DOC).pdf\n" > $PWD/$DIR/Makefile
 
 printf "${GREEN}Finished setting up template in ${BGREEN}$PWD/$DIR\n"

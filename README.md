@@ -1,10 +1,12 @@
 # mdtemp
 
-This is a very small script that will pretty much just set up a template folder for a report written in markdown
-(including a Makefile and BibTeX) for then converting the markdown file to a pdf. The setup includes getting a proper
-csl for reference formatting (check available csl files [here](https://github.com/citation-style-language/styles), it
-will list all these styles and then curl the one needed). The pdf generation can then be run with a simple `make` or
-`make view` to also open the pdf.
+This is a very small script that will pretty much just set up a template folder
+for a report or simple presentation written in markdown (including a Makefile
+    and BibTeX) for then converting the markdown file to a pdf. The setup
+    includes getting a proper csl for reference formatting (check available csl
+    files [here](https://github.com/citation-style-language/styles), it will
+    list all these styles and then curl the one needed). The pdf generation can
+    then be run with a simple `make` or `make view` to also open the pdf.
 
 ## Installation
 
@@ -44,3 +46,6 @@ mdtemp -d report -c
 ```
 
 Options for .csl files will show up as soon as you start typing the first letter (it uses fuzzy finding!).
+
+The generated Makefile is also rather simple, includes options such as `make report` or `make presentation`
+which will give the resulting type as a pdf.
