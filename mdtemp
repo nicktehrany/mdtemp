@@ -97,7 +97,7 @@ if [ "$citations" = "true" ]; then
     fi
 fi
 
-printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\nabstract: \"\"\ntheme: Copenhagen\n$CSL\n# Heading\n$CITE" > $PWD/$DIR/main.md
+printf "\055--\ntitle: Title\nauthor: Author\ndate: $(date +'%B %d %Y')\nabstract: \"\"\ntheme: Copenhagen\n$CSL\n# Heading\n\nSome text here.\n\n## Subsection\n\nSome more sample text.\n$CITE" > $PWD/$DIR/main.md
 
 printf "DOC = main\nDEPS = $DEPS\n\n.PHONY: all view presentation clean\n\nall: report\n\nreport: \$(DEPS)\n\tpandoc \$(DOC).md -o main.pdf $CMD\n\npresentation: \$(DEPS)\n\tpandoc -t beamer \$(DOC).md -o main.pdf $CMD\n\nview: report\n\txdg-open \$(DOC).pdf\n\nclean:\n\t\$(RM) \$(DOC).pdf\n" > $PWD/$DIR/Makefile
 
